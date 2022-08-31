@@ -4,6 +4,7 @@ import { mediaTypeToLoader, transformRawIntoContent } from "./shared.ts";
 
 export interface LoadOptions {
   importMapURL?: URL;
+  unstable?: bool;
 }
 
 export async function load(
@@ -34,6 +35,7 @@ async function loadFromCLI(
   if (!infoCache.has(specifierRaw)) {
     const { modules, redirects } = await deno.info(specifier, {
       importMap: options.importMapURL?.href,
+      unstable: options.unstable
     });
     for (const module of modules) {
       infoCache.set(module.specifier, module);
