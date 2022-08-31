@@ -36,6 +36,7 @@ export interface ModuleEntry {
 
 interface DenoInfoOptions {
   importMap?: string;
+  unstable: bool;
 }
 
 let tempDir: null | string;
@@ -49,6 +50,9 @@ export async function info(
     "info",
     "--json",
   ];
+  if (options.unstable) {
+    cmd.push("--unstable");
+  }
   if (options.importMap !== undefined) {
     cmd.push("--import-map", options.importMap);
   }
